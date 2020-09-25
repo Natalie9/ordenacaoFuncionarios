@@ -23,7 +23,7 @@ def parseSortingMethod(arg, data):
     switcher = {
         'insertion': insertion,
         'selection': selection,
-        'merge': mergeSort,
+        'merge': merge,
         'quick': quick,
     }
     # Get the function from switcher dictionary
@@ -40,7 +40,7 @@ def writeResult(data):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', type=str, default='docs/5000/random.csv')
-    parser.add_argument('-m', type=str, default='insertion', help="['insertion', 'selection', 'merge' ,'quick']")
+    parser.add_argument('-m', type=str, default='quick', help="['insertion', 'selection', 'merge' ,'quick']")
     args = parser.parse_args()
 
     print("reading data...")
