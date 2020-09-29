@@ -1,14 +1,18 @@
 # ordenacaoFuncionarios
 Programa para ordenação das informações de funcionários de uma empresa
 
-python main.py -f [caminho]  -m [metodo]
+# Como executar o programa
 
-passando o caminho do arquivo que quer ordenar e o método que quer usar para a ordenação. Se nenhum parâmetro for passado o programa escolherá de forma padrão. Para auxílio pode se chamar a função --help. 
+ ``python main.py -f [caminho]  -m [metodo]``
+
+Passando o caminho do arquivo que quer ordenar e o método que quer usar para a ordenação. 
+Caso nenhum parâmetro seja passado o programa escolherá de forma padrão. 
+Para auxílio pode se usar a função ``--help. ``
 
 
-main.py arquivo principal de execução
+``main.py`` arquivo principal de execução
 
-sortingMethods.py arquivo com implementação dos algoritmos de ordenação 
+``sortingMethods.py`` arquivo com implementação dos algoritmos de ordenação 
 
 /docs 
   Base de arquivos com dados para ordenação
