@@ -6,7 +6,9 @@ Programa para ordenação das informações de funcionários de uma empresa
  ``python main.py -f [caminho]  -m [metodo]``
 
 Passando o caminho do arquivo que quer ordenar e o método que quer usar para a ordenação. 
+
 Caso nenhum parâmetro seja passado o programa escolherá de forma padrão. 
+
 Para auxílio pode se usar a função ``--help. ``
 
 
