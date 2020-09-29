@@ -11,6 +11,9 @@ Caso nenhum parâmetro seja passado o programa escolherá de forma padrão.
 
 Para auxílio pode se usar a função ``--help. ``
 
+Os dados ordenados são gravados em um arquivo ``result.txt`` no mesmo diretório de execução. 
+
+## Diretórios
 
 ``main.py`` arquivo principal de execução
 
