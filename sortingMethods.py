@@ -1,92 +1,72 @@
-from datetime import datetime
 import sys
 
 
-def insertion(data, compare):
-    inicio = datetime.now()
-    counter = {'comparisons': 0, 'movements': 0}
+def insertion(data, compare, counter):
     for i in range(1, len(data)):
         j = i - 1
         aux = data[i]
-        counter['comparisons'] += 1
-        while (j >= 0) and compare(aux, data[j]):
+        while (j >= 0) and compare(aux, data[j], counter):
             data[j + 1] = data[j]
             counter['movements'] += 1
             j -= 1
         data[j + 1] = aux
-    fim = datetime.now()
-    total = fim - inicio
-    return {'data': data, 'counter': counter, 'total': total}
 
 
-def selection(data, compare):
-    inicio = datetime.now()
-    counter = {'comparisons': 0, 'movements': 0}
+def selection(data, compare, counter):
     for i in range(len(data)):
         min_idx = i
-        counter['comparisons'] += 1
         for j in range(i + 1, len(data)):
-            counter['comparisons'] += 1
-            if compare(data[j], data[min_idx]):
+            if not compare(data[min_idx], data[j], counter):
                 min_idx = j
                 counter['movements'] += 1
         data[i], data[min_idx] = data[min_idx], data[i]
-    fim = datetime.now()
-    total = fim - inicio
-    return {'data': data, 'counter': counter, 'total': total}
 
 
-def quick(lista, compare, start=0, end=None):
-    inicio = datetime.now()
-    counter = {'comparisons': 0, 'movements': 0}
+def quick(lista, compare, counter, start=0, end=None):
+    sys.setrecursionlimit(10 ** 6)
     if end is None:
         end = len(lista) - 1
-    if start < end:
+    if end > start:
         p = partition(lista, start, end, counter, compare)
         # recursivamente na sublista à esquerda (menores)
-        quick(lista, compare, start, p['i'] - 1)
+        quick(lista, compare, counter, start, p - 1)
         # recursivamente na sublista à direita (maiores)
-        quick(lista, compare, p['i'] + 1, end)
-    end = datetime.now()
-    total = end - inicio
-    return {'data': lista, 'counter': counter, 'total': total}
+        quick(lista, compare, counter, p + 1, end)
 
 
 def partition(lista, start, end, counter, compare):
-    pivot = lista[end]
-    i = start
-    for j in range(start, end):
-        # j sempre avança, pois representa o elementa em análise
-        # e delimita os elementos maiores que o pivô
-        counter['comparisons'] += 1
-        if compare(lista[j], pivot):
-            lista[j], lista[i] = lista[i], lista[j]
+    pivot = lista[start]
+    left = start + 1
+    right = end
+    while left < right:
+        while left <= end and compare(lista[left], pivot, counter, True):
+            left += 1
+        while right > start and not compare(lista[right], pivot, counter):
+            right -= 1
+        if left < right:
+            counter['comparisons'] += 1
             counter['movements'] += 1
-            # incrementa-se o limite dos elementos menores que o pivô
-            i = i + 1
-    lista[i], lista[end] = lista[end], lista[i]
-    return {'counter': counter, 'i': i}
+            lista[left], lista[right] = lista[right], lista[left]
+    counter['movements'] += 1
+    lista[start], lista[right] = lista[right], pivot
+    return right
 
 
-def merge(alist, compare):
-    inicio = datetime.now()
-    counter = {'comparisons': 0, 'movements': 0}
+def merge(alist, compare, counter):
     if len(alist) > 1:
         mid = len(alist) // 2
         lefthalf = alist[:mid]
         righthalf = alist[mid:]
 
-        merge(lefthalf, compare)
-        merge(righthalf, compare)
+        merge(lefthalf, compare, counter)
+        merge(righthalf, compare, counter)
 
         i = 0
         j = 0
         k = 0
         while i < len(lefthalf) and j < len(righthalf):
-            counter['comparisons'] += 1
-            if compare(lefthalf[i], righthalf[j]):
+            if compare(lefthalf[i], righthalf[j], counter):
                 alist[k] = lefthalf[i]
-                counter['movements'] += 1
                 i = i + 1
             else:
                 alist[k] = righthalf[j]
@@ -103,9 +83,3 @@ def merge(alist, compare):
             alist[k] = righthalf[j]
             j = j + 1
             k = k + 1
-
-    fim = datetime.now()
-    total = fim - inicio
-    return {'data': alist, 'counter': counter, 'total': total}
-
-
