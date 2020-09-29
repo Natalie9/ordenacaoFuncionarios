@@ -14,12 +14,12 @@ Para auxílio pode se usar a função ``--help. ``
 
 ``sortingMethods.py`` arquivo com implementação dos algoritmos de ordenação 
 
-/docs 
+``/docs ``
   Base de arquivos com dados para ordenação
 
-/test
+``/test``
   Testes (pytest) com plotagem de gráficos do desempenho de cada algoritmo 
 
-/tests 
+``/tests ``
   Testes de mesa, com poucos dados para averiguação dos resultados obtidos (necessario connfigurar metodo de leitura do csv)
 
